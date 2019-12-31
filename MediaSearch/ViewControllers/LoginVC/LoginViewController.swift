@@ -26,6 +26,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        fetchUser()
     }
     
     // MARK: - Actions
@@ -49,28 +50,36 @@ class LoginViewController: UIViewController {
     }
     @IBAction func signUpOrInButtonPressed(_ sender: Any) {
         if toggleSignUpOrIn.selectedSegmentIndex == 0 {
-            guard usernameTextField.text == UserController.shared.currentUser?.recordID.recordName else { return }
-            fetchUser()
-            presentMediaListVC()
+            guard let username = usernameTextField.text,
+                let password = passwordTextField.text
+            else { return }
+            
+            UserController.shared.fetchUser(userName: username, password: password) { (success) in
+                if success {
+                    DispatchQueue.main.async {
+                        self.usernameTextField.text = ""
+                        self.passwordTextField.text = ""
+                        self.presentMediaListVC()
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.usernameTextField.text = ""
+                        self.passwordTextField.text = ""
+                        self.confirmPasswordTextField.text = ""
+                        self.presentLoginError()
+                    }
+                }
+            }
         }
         if toggleSignUpOrIn.selectedSegmentIndex == 1 {
             guard let username = usernameTextField.text,
                 !username.isEmpty,
                 let password = passwordTextField.text,
-                !password.isEmpty,
-                let confirmPassword = confirmPasswordTextField.text,
-                !confirmPassword.isEmpty
+                !password.isEmpty
                 else { return }
-            UserController.shared.createUser(with: username) { (success) in
+            UserController.shared.createUser(with: username, password: password) { (success) in
                 
                 if success {
-                    guard let username = self.usernameTextField.text,
-                    !username.isEmpty,
-                    let password = self.passwordTextField.text,
-                    !password.isEmpty,
-                    let confirmPassword = self.confirmPasswordTextField.text,
-                    !confirmPassword.isEmpty
-                    else { return }
                     self.presentMediaListVC()
                 } else {
                     return
@@ -84,7 +93,7 @@ class LoginViewController: UIViewController {
     // Also need an error alert for password strength and non unique username
     
     func presentLoginError() {
-        let alertController = UIAlertController(title: "Incorrect password or Username", message: "", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Incorrect Password or Username", message: "", preferredStyle: .alert)
         let okayAction = UIAlertAction(title: "Okay", style: .default) { (_) in
             self.passwordTextField.text = ""
         }
@@ -142,7 +151,8 @@ class LoginViewController: UIViewController {
     
     func fetchUser() {
         let username = UserConstants.usernameKey
-        UserController.shared.fetchUser(userName: username) { (success) in
+        let password = UserConstants.passwordKey
+        UserController.shared.fetchUser(userName: username, password: password) { (success) in
             if success {
                 self.presentMediaListVC()
             }

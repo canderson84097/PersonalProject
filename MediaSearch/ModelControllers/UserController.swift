@@ -22,10 +22,10 @@ class UserController {
     
     // MARK: - CRUD
     
-    func createUser(with username: String, completion: @escaping (Bool) -> Void) {
+    func createUser(with username: String, password: String, completion: @escaping (Bool) -> Void) {
         fetchAppleUsername { (reference) in
             guard let reference = reference else { completion(false); return }
-            let newUser = User(username: username, appleUserRef: reference)
+            let newUser = User(username: username, password: password, appleUserRef: reference)
             let record = CKRecord(user: newUser)
             self.publicDB.save(record) { (record, error) in
                 if let error = error {
@@ -44,13 +44,14 @@ class UserController {
         }
     }
     
-    func fetchUser(userName: String, completion: @escaping (Bool) -> Void) {
+    func fetchUser(userName: String, password: String, completion: @escaping (Bool) -> Void) {
         fetchAppleUsername { (reference) in
             guard let reference = reference else { completion(false); return }
             
             let predicate = NSPredicate(format: "%K == %@", argumentArray: [UserConstants.appleUserRefKey, reference])
             let predicate2 = NSPredicate(format: "%K == %@", argumentArray: [UserConstants.usernameKey, userName])
-            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2])
+            let predicate3 = NSPredicate(format: "%K == %@", argumentArray: [UserConstants.passwordKey, password])
+            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, predicate2, predicate3])
             let query = CKQuery(recordType: UserConstants.recordTypeKey, predicate: compoundPredicate)
             self.publicDB.perform(query, inZoneWith: nil) { (records, error) in
                 if let error = error {
