@@ -159,16 +159,6 @@
             </objects>
             <point key="canvasLocation" x="-621" y="106"/>
         </scene>
-        <!--navControl-->
-        <scene sceneID="RZP-US-BxN">
-            <objects>
-                <viewControllerPlaceholder storyboardName="RecommendedItems" referencedIdentifier="navControl" id="VQU-5B-dYJ" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="d6w-zY-9hD"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4qq-I6-gig" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="566" y="-353"/>
-        </scene>
         <!--Track List Table View Controller-->
         <scene sceneID="fje-W4-fOi">
             <objects>
@@ -487,7 +477,7 @@
                                             <constraint firstAttribute="height" constant="30" id="am7-qy-2PS"/>
                                         </constraints>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(summary)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVp-OP-P6T">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(summary)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DVp-OP-P6T">
                                         <rect key="frame" x="0.0" y="114" width="374" height="357"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>

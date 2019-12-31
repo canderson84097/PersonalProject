@@ -102,7 +102,7 @@ class MediaItemController {
         }.resume()
     }
     
-    func getTracksOf(type: MediaItem.ItemType, searchTracks: String, completion: @escaping ([MediaItem]) -> Void) {
+    func getTracksOf(collectionID: Int, type: MediaItem.ItemType, searchTracks: String, completion: @escaping ([MediaItem]) -> Void) {
         
         guard let baseURL = URL(string: baseURLString) else { return }
         guard var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true) else { completion([]); return }
@@ -149,7 +149,9 @@ class MediaItemController {
             
             for itemDictionary in appStoreItemDictionaries {
                 if let newItem = MediaItem(itemType: type, dict: itemDictionary) {
-                    allTrackItems.append(newItem)
+                    if collectionID == newItem.collectionID {
+                        allTrackItems.append(newItem)
+                    }
                 }
             }
             completion(allTrackItems)

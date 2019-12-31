@@ -19,6 +19,7 @@ struct MediaItem {
     let trackNumber: Int?
     let length: Int?
     let imageURL: String?
+    let collectionID: Int?
     
     enum ItemType: String {
         
@@ -44,6 +45,7 @@ extension MediaItem {
         let trackCount = dict[ItemConstants.trackCountKey] as? Int
         let length = dict[ItemConstants.lengthKey] as? Int
         let trackNumber = dict[ItemConstants.trackNumberKey] as? Int
+        let collectionID = dict[ItemConstants.collectionIDKey]as? Int
         
         self.releaseDate = releaseDate
         self.rating = rating
@@ -52,6 +54,7 @@ extension MediaItem {
         self.length = length
         self.trackNumber = trackNumber
         self.imageURL = imageURL
+        self.collectionID = collectionID
         
         if itemType == .movie {
             
@@ -62,6 +65,7 @@ extension MediaItem {
             
             _ = dict[ItemConstants.trackCountKey] as? Int ?? 0
             _ = dict[ItemConstants.trackNumberKey] as? Int ?? 0
+            _ = 0
             
             self.title = title
             self.subtitle = subtitle
@@ -74,6 +78,7 @@ extension MediaItem {
                 let summary = dict[ItemConstants.copyrightKey] as? String
                 else { return nil }
             
+            _ = 0
             _ = 0
             _ = 0
             
@@ -90,6 +95,7 @@ extension MediaItem {
             
             _ = 0
             _ = 0
+            _ = 0
             
             self.title = title
             self.subtitle = subtitle
@@ -99,7 +105,7 @@ extension MediaItem {
             
             guard let title = dict[ItemConstants.trackNameKey] as? String,
                 let subtitle = dict[ItemConstants.artistKey] as? String,
-                let summary = dict[ItemConstants.descriptionKey] as? String
+                let rawSummary = dict[ItemConstants.descriptionKey] as? String
                 else { return nil }
             
             _ = "N/A"
@@ -107,10 +113,11 @@ extension MediaItem {
             _ = 0
             _ = 0
             _ = 0
+            _ = 0
             
             self.title = title
             self.subtitle = subtitle
-            self.summary = summary
+            self.summary = rawSummary.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
             
         } else if itemType == .podcast {
             
@@ -119,6 +126,7 @@ extension MediaItem {
                 else { return nil }
             
             _ = "N/A"
+            _ = 0
             _ = 0
             _ = 0
             let summary = "N/A"
@@ -147,7 +155,7 @@ extension MediaItem {
             _ = "N/A"
             let summary = "N/A"
             
-            self.title = title
+            self.title = title.replacingOccurrences(of: "(Deluxe)", with: "").replacingOccurrences(of: "(Deluxe Version)", with: "")
             self.subtitle = subtitle
             self.summary = summary
             
@@ -157,34 +165,6 @@ extension MediaItem {
         }
     }
 }
-
- extension MediaItem {
-        init?(dict: [String: Any]) {
-            guard let title = dict["Name"] as? String,
-            let summary = dict["wTeaser"] as? String
-                else { return nil }
-            
-            let subtitle = "N/A"
-            let rating = "N/A"
-            let genre = "N/A"
-            let releaseDate = "N/A"
-            let trackCount = 0
-            let trackNumber = 0
-            let length = 0
-            let imageURL = "N/A"
-            
-            self.title = title
-            self.summary = summary
-            self.genre = genre
-            self.subtitle = subtitle
-            self.rating = rating
-            self.releaseDate = releaseDate
-            self.trackCount = trackCount
-            self.trackNumber = trackNumber
-            self.length = length
-            self.imageURL = imageURL
-        }
-    }
  
 struct ItemConstants {
     static let trackNameKey = "trackName"
@@ -200,4 +180,5 @@ struct ItemConstants {
     static let lengthKey = "trackTimeMillis"
     static let descriptionKey = "description"
     static let copyrightKey = "copyright"
+    static let collectionIDKey = "collectionId"
 }

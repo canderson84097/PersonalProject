@@ -25,7 +25,7 @@ class TrackTableViewCell: UITableViewCell {
             
             guard let item = trackItem else { return }
             
-            itemTitleLabel.text = item.title.replacingOccurrences(of: "(Deluxe Version)", with: "")
+            itemTitleLabel.text = item.title
             trackTitleLabel.text = item.subtitle
             trackCountLabel.text = "\(item.trackNumber ?? 0) of \(item.trackCount ?? 0)"
             trackImageView.image = nil

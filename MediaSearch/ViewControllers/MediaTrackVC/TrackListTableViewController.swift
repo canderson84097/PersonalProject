@@ -18,13 +18,15 @@ class TrackListTableViewController: UITableViewController {
         didSet {
             
             guard let collectionItem = collectionItem,
+                let collectionID = collectionItem.collectionID,
                 let itemType = MediaItem.ItemType(rawValue: trackTypeString)
                 else { return }
             
-            MediaItemController.shared.getTracksOf(type: itemType, searchTracks: collectionItem.subtitle) { (items) in
+            MediaItemController.shared.getTracksOf(collectionID: collectionID, type: itemType, searchTracks: collectionItem.subtitle) { (items) in
                 
                 // I have to manually sort in a for loop for no !operator
-                let sortedTracks = items.sorted(by: { $0.trackNumber! < $1.trackNumber! })
+                
+                let sortedTracks = items.sorted(by: { $0.trackNumber ?? 0 < $1.trackNumber ?? 1 })
                 self.allTrackItems = sortedTracks
                 
                 DispatchQueue.main.async {
