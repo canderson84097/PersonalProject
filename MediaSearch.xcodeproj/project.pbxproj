@@ -21,7 +21,7 @@
 		2C71EA4A23B675E000992B77 /* RecItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71EA4923B675E000992B77 /* RecItem.swift */; };
 		2C71EA4C23B67B9800992B77 /* RecommendedItems.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C71EA4B23B67B9800992B77 /* RecommendedItems.storyboard */; };
 		2C71EA4F23B67DB800992B77 /* RecItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71EA4E23B67DB800992B77 /* RecItemsTableViewController.swift */; };
-		2C71EA5123B67E2D00992B77 /* RecItemCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71EA5023B67E2D00992B77 /* RecItemCellTableViewCell.swift */; };
+		2C71EA5123B67E2D00992B77 /* RecItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71EA5023B67E2D00992B77 /* RecItemTableViewCell.swift */; };
 		2CCE213323B53810008A1611 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE213223B53810008A1611 /* AppDelegate.swift */; };
 		2CCE213523B53810008A1611 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE213423B53810008A1611 /* SceneDelegate.swift */; };
 		2CCE213A23B53810008A1611 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCE213823B53810008A1611 /* Main.storyboard */; };
@@ -32,7 +32,6 @@
 		2CCE215823B53B1A008A1611 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE215723B53B1A008A1611 /* LoginViewController.swift */; };
 		2CCE215A23B53F22008A1611 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE215923B53F22008A1611 /* CustomView.swift */; };
 		2CCE215C23B541EA008A1611 /* MediaSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCE215B23B541EA008A1611 /* MediaSearch.storyboard */; };
-		2CD0052A23BBC0EE0001458F /* RecDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0052923BBC0EE0001458F /* RecDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,7 +49,7 @@
 		2C71EA4923B675E000992B77 /* RecItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecItem.swift; sourceTree = "<group>"; };
 		2C71EA4B23B67B9800992B77 /* RecommendedItems.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RecommendedItems.storyboard; sourceTree = "<group>"; };
 		2C71EA4E23B67DB800992B77 /* RecItemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecItemsTableViewController.swift; sourceTree = "<group>"; };
-		2C71EA5023B67E2D00992B77 /* RecItemCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecItemCellTableViewCell.swift; sourceTree = "<group>"; };
+		2C71EA5023B67E2D00992B77 /* RecItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecItemTableViewCell.swift; sourceTree = "<group>"; };
 		2CCE212F23B53810008A1611 /* MediaSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediaSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CCE213223B53810008A1611 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CCE213423B53810008A1611 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,7 +63,6 @@
 		2CCE215723B53B1A008A1611 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2CCE215923B53F22008A1611 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		2CCE215B23B541EA008A1611 /* MediaSearch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MediaSearch.storyboard; sourceTree = "<group>"; };
-		2CD0052923BBC0EE0001458F /* RecDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +81,6 @@
 			isa = PBXGroup;
 			children = (
 				2C71EA4E23B67DB800992B77 /* RecItemsTableViewController.swift */,
-				2CD0052923BBC0EE0001458F /* RecDetailViewController.swift */,
 			);
 			path = RecItemsVC;
 			sourceTree = "<group>";
@@ -185,7 +182,7 @@
 			children = (
 				2C71EA3323B6619C00992B77 /* ItemTableViewCell.swift */,
 				2C71EA3523B661A400992B77 /* TrackTableViewCell.swift */,
-				2C71EA5023B67E2D00992B77 /* RecItemCellTableViewCell.swift */,
+				2C71EA5023B67E2D00992B77 /* RecItemTableViewCell.swift */,
 			);
 			path = CustomCells;
 			sourceTree = "<group>";
@@ -318,9 +315,8 @@
 				2C71EA3623B661A400992B77 /* TrackTableViewCell.swift in Sources */,
 				2CCE213323B53810008A1611 /* AppDelegate.swift in Sources */,
 				2C71EA4F23B67DB800992B77 /* RecItemsTableViewController.swift in Sources */,
-				2CD0052A23BBC0EE0001458F /* RecDetailViewController.swift in Sources */,
 				2C71EA3A23B661C500992B77 /* User.swift in Sources */,
-				2C71EA5123B67E2D00992B77 /* RecItemCellTableViewCell.swift in Sources */,
+				2C71EA5123B67E2D00992B77 /* RecItemTableViewCell.swift in Sources */,
 				2C71EA4023B661F400992B77 /* UserController.swift in Sources */,
 				2C71EA4823B665A200992B77 /* TrackDetailViewController.swift in Sources */,
 				2C71EA4423B6658000992B77 /* ItemDetailViewController.swift in Sources */,

@@ -30,7 +30,6 @@ class ItemTableViewCell: UITableViewCell {
             
             titleLabel.text = item.title
             subtitleLabel.text = item.subtitle
-//            subtitleLabel.text = item.subtitle.replacingOccurrences(of: "(Deluxe Version)", with: "").replacingOccurrences(of: "(Deluxe)", with: "")
             itemImageView.image = nil
             
             MediaItemController.shared.getImageFor(item: item) { (image) in
@@ -52,14 +51,17 @@ class ItemTableViewCell: UITableViewCell {
         setUpUI()
     }
     
-    func setUpUI() {
-        titleLabel.textColor = .cyan
-        subtitleLabel.textColor = .mediumGreen
-    }
+    // MARK: - Actions
     
     @IBAction func favoriteButtonPressed(_ sender: Any) {
         guard let item = item else { return }
         delegate?.favoriteButtonPressed(title: item.title)
     }
     
+    // MARK: - Custom Methods
+    
+    func setUpUI() {
+        titleLabel.textColor = .cyan
+        subtitleLabel.textColor = .mediumGreen
+    }
 }

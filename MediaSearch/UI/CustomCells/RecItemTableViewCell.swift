@@ -6,13 +6,19 @@
 //  Copyright © 2019 Renaissance Apps. All rights reserved.
 //
 
+protocol RecItemTableViewCellDelegate {
+    func getInfoButtonPressed(recItem: RecItem)
+}
+
 import UIKit
 
-class RecItemCellTableViewCell: UITableViewCell {
+class RecItemTableViewCell: UITableViewCell {
 
     @IBOutlet weak var recItemTitle: UILabel!
     
     @IBOutlet weak var recItemTeaser: UILabel!
+    
+    var delegate: RecItemTableViewCellDelegate?
     
     var recItem: RecItem? {
         didSet {
@@ -31,6 +37,16 @@ class RecItemCellTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
+    // MARK: - Actions
+    
+    @IBAction func getInfoButtonPressed(_ sender: Any) {
+        guard let recItem = recItem else { return }
+        
+        delegate?.getInfoButtonPressed(recItem: recItem)
+    }
+    
+    // MARK: - Custom Methods
     
     func setUpUI() {
         recItemTitle.textColor = .cyan

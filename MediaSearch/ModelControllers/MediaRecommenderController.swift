@@ -32,7 +32,7 @@ class MediaRecommenderController {
         let mediaItemQuery = URLQueryItem(name: recommQueryTerm, value: searchText)
         components.queryItems = [infoQuery, mediaItemQuery]
         
-        print(components.url!)
+//        print(components.url!)
         
         guard let finalUrl = components.url else {
             print("Our query items are causing problems.")

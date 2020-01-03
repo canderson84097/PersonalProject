@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MediaListTableViewController: UITableViewController, UISearchBarDelegate, ItemTableViewCellDelegate {
+class MediaListTableViewController: UITableViewController, UISearchBarDelegate, ItemTableViewCellDelegate, RecItemsTableViewControllerDelegate {
     
     // MARK: - Outlets
     
@@ -19,26 +19,40 @@ class MediaListTableViewController: UITableViewController, UISearchBarDelegate, 
     
     var mediaItems: [MediaItem] = []
     
+    
+//    var recItem: RecItem? {
+        //        didSet {
+        //            guard let recItem = recItem else { return }
+        //            var type: MediaItem.ItemType {
+        //                switch recItem.type {
+        //                case "movie":
+        //                    return MediaItem.ItemType.movie
+        //                case "show":
+        //                    return MediaItem.ItemType.tvShow
+        //                case "music":
+        //                    return MediaItem.ItemType.music
+        //                case "podcast":
+        //                    return MediaItem.ItemType.podcast
+        //                case "book":
+        //                    return MediaItem.ItemType.ebook
+        //                default:
+        //                    return MediaItem.ItemType.movie
+        //                }
+        //            }
+        //            let searchTerm = recItem.title
+        //            MediaItemController.shared.getItemsOf(type: type, searchText: searchTerm) { (items) in
+        //                self.mediaItems = items
+        //                self.updateViews()
+        //            }
+        //        }
+//    }
+    
     // MARK: - Life Cycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         itemSearchBar.delegate = self
         setUpUI()
-    }
-    
-    // MARK: - Custom Methods
-    
-    func setUpUI() {
-        itemSearchBar.layer.backgroundColor = UIColor.cyan.cgColor
-        let textFieldInsideSearchBar = itemSearchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = .black
-    }
-    
-    func signOutUser() {
-        DispatchQueue.main.async {
-            self.navigationController?.dismiss(animated: true)
-        }
     }
     
     // MARK: - Actions
@@ -48,32 +62,28 @@ class MediaListTableViewController: UITableViewController, UISearchBarDelegate, 
         guard let searchText = itemSearchBar.text, !searchText.isEmpty else { return }
         
         var itemType: MediaItem.ItemType {
-           
-           switch itemSegmentedControl.selectedSegmentIndex {
-           case 0:
-               return .movie
-           case 1:
-               return .tvShow
-           case 2:
-               return .music
-           case 3:
-               return .podcast
-           case 4:
-               return .ebook
-           default:
-               return .movie
-           }
+            
+            switch itemSegmentedControl.selectedSegmentIndex {
+            case 0:
+                return .movie
+            case 1:
+                return .tvShow
+            case 2:
+                return .music
+            case 3:
+                return .podcast
+            case 4:
+                return .ebook
+            default:
+                return .movie
+            }
         }
         
         MediaItemController.shared.getItemsOf(type: itemType, searchText: searchText) { (items) in
             
-//            let sortedItems = items.sorted(by: { $0.releaseDate < $1.releaseDate })
+            //            let sortedItems = items.sorted(by: { $0.releaseDate < $1.releaseDate })
             self.mediaItems = items
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.itemSearchBar.text = ""
-            }
+            self.updateViews()
         }
     }
     
@@ -82,8 +92,7 @@ class MediaListTableViewController: UITableViewController, UISearchBarDelegate, 
         UserController.shared.currentUser = nil
     }
     
-    
-    // MARK: - Table view data source
+    // MARK: - Table View Data Source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -109,14 +118,63 @@ class MediaListTableViewController: UITableViewController, UISearchBarDelegate, 
         }
     }
     
-    func favoriteButtonPressed(title: String) {
-            DispatchQueue.main.async {
-                let storyboard = UIStoryboard(name: "RecommendedItems", bundle: nil)
-                guard let viewController = storyboard.instantiateViewController(identifier: "recItemsTVC") as? RecItemsTableViewController else { return }
-                viewController.searchTerm = title
-                self.present(viewController, animated: true)
+    // MARK: - Custom Methods
+    
+    func updateViews() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.itemSearchBar.text = ""
+        }
+    }
+    
+    func setUpUI() {
+        itemSearchBar.layer.backgroundColor = UIColor.cyan.cgColor
+        let textFieldInsideSearchBar = itemSearchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = .black
+    }
+    
+    func signOutUser() {
+        DispatchQueue.main.async {
+            self.navigationController?.dismiss(animated: true)
+        }
+    }
+    
+    func searchRecItem(recItem: RecItem) {
+        var type: MediaItem.ItemType {
+            switch recItem.type {
+            case "movie":
+                return MediaItem.ItemType.movie
+            case "show":
+                return MediaItem.ItemType.tvShow
+            case "music":
+                return MediaItem.ItemType.music
+            case "podcast":
+                return MediaItem.ItemType.podcast
+            case "book":
+                return MediaItem.ItemType.ebook
+            default:
+                return MediaItem.ItemType.movie
             }
-       }
+        }
+        let searchTerm = recItem.title
+        MediaItemController.shared.getItemsOf(type: type, searchText: searchTerm) { (items) in
+            self.mediaItems = items
+            self.updateViews()
+            DispatchQueue.main.async {
+                self.itemSearchBar.text = recItem.title                
+            }
+        }
+    }
+    
+    func favoriteButtonPressed(title: String) {
+        DispatchQueue.main.async {
+            let storyboard = UIStoryboard(name: "RecommendedItems", bundle: nil)
+            guard let viewController = storyboard.instantiateViewController(identifier: "recItemsTVC") as? RecItemsTableViewController else { return }
+            viewController.searchTerm = title
+            viewController.delegate = self
+            self.present(viewController, animated: true)
+        }
+    }
     
     // MARK: - Navigation
     

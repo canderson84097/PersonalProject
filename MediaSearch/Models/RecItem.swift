@@ -29,6 +29,14 @@ struct RecItem: Codable {
     var title: String
     let summary: String
     let type: String
+    
+    enum ItemType: String {
+        case movie = "movie"
+        case tvShow = "show"
+        case music = "music"
+        case podcast = "podcast"
+        case book = "book"
+    }
 
     enum CodingKeys: String, CodingKey {
         case title = "Name"

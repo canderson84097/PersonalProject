@@ -17,12 +17,13 @@ struct MediaItem {
     let releaseDate: String
     let trackCount: Int?
     let trackNumber: Int?
+    let discCount: Int?
+    let discNumber: Int?
     let length: Int?
     let imageURL: String?
     let collectionID: Int?
     
     enum ItemType: String {
-        
         case movie = "movie"
         case tvShow = "tvSeason"
         case music = "album"
@@ -45,7 +46,9 @@ extension MediaItem {
         let trackCount = dict[ItemConstants.trackCountKey] as? Int
         let length = dict[ItemConstants.lengthKey] as? Int
         let trackNumber = dict[ItemConstants.trackNumberKey] as? Int
-        let collectionID = dict[ItemConstants.collectionIDKey]as? Int
+        let discCount = dict[ItemConstants.discCountKey] as? Int
+        let discNumber = dict[ItemConstants.discNumberKey] as? Int
+        let collectionID = dict[ItemConstants.collectionIDKey] as? Int
         
         self.releaseDate = releaseDate
         self.rating = rating
@@ -53,6 +56,8 @@ extension MediaItem {
         self.trackCount = trackCount
         self.length = length
         self.trackNumber = trackNumber
+        self.discCount = discCount
+        self.discNumber = discNumber
         self.imageURL = imageURL
         self.collectionID = collectionID
         
@@ -62,10 +67,6 @@ extension MediaItem {
                 let subtitle = dict[ItemConstants.artistKey] as? String,
                 let summary = dict[ItemConstants.summaryKey] as? String
                 else { return nil }
-            
-            _ = dict[ItemConstants.trackCountKey] as? Int ?? 0
-            _ = dict[ItemConstants.trackNumberKey] as? Int ?? 0
-            _ = 0
             
             self.title = title
             self.subtitle = subtitle
@@ -78,10 +79,6 @@ extension MediaItem {
                 let summary = dict[ItemConstants.copyrightKey] as? String
                 else { return nil }
             
-            _ = 0
-            _ = 0
-            _ = 0
-            
             self.title = title
             self.subtitle = subtitle
             self.summary = summary
@@ -92,10 +89,6 @@ extension MediaItem {
                 let subtitle = dict[ItemConstants.collectionNameKey] as? String,
                 let summary = dict[ItemConstants.summaryKey] as? String
                 else { return nil }
-            
-            _ = 0
-            _ = 0
-            _ = 0
             
             self.title = title
             self.subtitle = subtitle
@@ -108,13 +101,6 @@ extension MediaItem {
                 let rawSummary = dict[ItemConstants.descriptionKey] as? String
                 else { return nil }
             
-            _ = "N/A"
-            _ = "N/A"
-            _ = 0
-            _ = 0
-            _ = 0
-            _ = 0
-            
             self.title = title
             self.subtitle = subtitle
             self.summary = rawSummary.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
@@ -125,11 +111,7 @@ extension MediaItem {
                 let subtitle = dict[ItemConstants.artistKey] as? String
                 else { return nil }
             
-            _ = "N/A"
-            _ = 0
-            _ = 0
-            _ = 0
-            let summary = "N/A"
+            let summary = ""
             
             self.title = title
             self.subtitle = subtitle
@@ -152,8 +134,7 @@ extension MediaItem {
                 let subtitle = dict[ItemConstants.trackNameKey] as? String
                 else { return nil }
             
-            _ = "N/A"
-            let summary = "N/A"
+            let summary = ""
             
             self.title = title.replacingOccurrences(of: "(Deluxe)", with: "").replacingOccurrences(of: "(Deluxe Version)", with: "")
             self.subtitle = subtitle
@@ -177,6 +158,8 @@ struct ItemConstants {
     static let summaryKey = "longDescription"
     static let trackCountKey = "trackCount"
     static let trackNumberKey = "trackNumber"
+    static let discCountKey = "discCount"
+    static let discNumberKey = "discNumber"
     static let lengthKey = "trackTimeMillis"
     static let descriptionKey = "description"
     static let copyrightKey = "copyright"

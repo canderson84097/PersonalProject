@@ -24,8 +24,6 @@ class TrackListTableViewController: UITableViewController {
             
             MediaItemController.shared.getTracksOf(collectionID: collectionID, type: itemType, searchTracks: collectionItem.subtitle) { (items) in
                 
-                // I have to manually sort in a for loop for no !operator
-                
                 let sortedTracks = items.sorted(by: { $0.trackNumber ?? 0 < $1.trackNumber ?? 1 })
                 self.allTrackItems = sortedTracks
                 
@@ -40,11 +38,22 @@ class TrackListTableViewController: UITableViewController {
         super.viewDidLoad()
     }
     
-    // MARK: - Table view data source
+    // MARK: - Table View Data Source
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 120
     }
+    
+    // Need to look into discCount and discNumber for tracks
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        guard let collectionItem = collectionItem else { return 0 }
+//        guard let discCount = collectionItem.discCount else { return 0 }
+//        return collectionItem.discCount
+//    }
+//
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return "Disc \(section + 1)"
+//    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allTrackItems.count

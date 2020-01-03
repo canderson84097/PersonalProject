@@ -30,7 +30,7 @@ class MediaItemController {
         let entityQuery = URLQueryItem(name: queryEntity, value: type.rawValue)
         components.queryItems = [searchTermQuery, entityQuery]
         
-        print(components.url!)
+//        print(components.url!)
         
         guard let finalUrl = components.url else {
             print("Our query items are causing problems.")
@@ -111,7 +111,7 @@ class MediaItemController {
         let entityQuery = URLQueryItem(name: queryEntity, value: type.rawValue)
         components.queryItems = [searchTermQuery, entityQuery]
         
-        print(components.url!)
+//        print(components.url!)
         
         guard let finalUrl = components.url else {
             print("Our query items are causing problems.")

@@ -6,11 +6,21 @@
 //  Copyright © 2019 Renaissance Apps. All rights reserved.
 //
 
+protocol RecItemsTableViewControllerDelegate {
+    func searchRecItem(recItem: RecItem)
+}
+
 import UIKit
 
-class RecItemsTableViewController: UITableViewController {
+class RecItemsTableViewController: UITableViewController, RecItemTableViewCellDelegate {
+    
+    // MARK: - Properties
     
     var allRecItems: [RecItem] = []
+    
+    var delegate: RecItemsTableViewControllerDelegate?
+    
+    var recItem: RecItem?
     
     var searchTerm = "" {
         didSet {
@@ -21,20 +31,13 @@ class RecItemsTableViewController: UITableViewController {
         }
     }
     
-    var recItem: RecItem?
+    // MARK: - Life Cycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-       
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
+    // MARK: - Custom Methods
     
     func updateViews() {
         DispatchQueue.main.async {
@@ -42,43 +45,27 @@ class RecItemsTableViewController: UITableViewController {
         }
     }
     
+    func getInfoButtonPressed(recItem: RecItem) {
+        delegate?.searchRecItem(recItem: recItem)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     // MARK: - Table view data source
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allRecItems.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "recItemCell", for: indexPath) as? RecItemCellTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "recItemCell", for: indexPath) as? RecItemTableViewCell else { return UITableViewCell() }
         
         let recItem = allRecItems[indexPath.row]
         cell.recItem = recItem
+        cell.delegate = self
         return cell
-    }
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    // MARK: - Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toRecDetailVC" {
-            guard let indexPath = tableView.indexPathForSelectedRow,
-            let destinationVC = segue.destination as? RecDetailViewController
-            else { return }
-            
-            let chosenItem = allRecItems[indexPath.row]
-            destinationVC.searchTerm = chosenItem.title
-            destinationVC.itemType = chosenItem.type
-        }
     }
 }
