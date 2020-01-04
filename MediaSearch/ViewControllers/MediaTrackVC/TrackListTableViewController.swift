@@ -14,6 +14,17 @@ class TrackListTableViewController: UITableViewController {
     
     var allTrackItems: [MediaItem] = []
     
+    var disc1TrackItems: [MediaItem] = []
+    
+    var disc2TrackItems: [MediaItem] = []
+    
+    var sectionCount: Int {
+        let sorted = allTrackItems.sorted {
+            $0.discCount ?? 0 > $1.discCount ?? 0
+        }
+        return sorted.last?.discCount ?? 0
+    }
+    
     var collectionItem: MediaItem? {
         didSet {
             
@@ -26,13 +37,14 @@ class TrackListTableViewController: UITableViewController {
                 
                 let sortedTracks = items.sorted(by: { $0.trackNumber ?? 0 < $1.trackNumber ?? 1 })
                 self.allTrackItems = sortedTracks
+                self.tracksForDiscs()
                 
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+                self.updateViews()
             }
         }
     }
+    
+    // MARK: - Life Cycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,30 +56,56 @@ class TrackListTableViewController: UITableViewController {
         return 120
     }
     
-    // Need to look into discCount and discNumber for tracks
-//    override func numberOfSections(in tableView: UITableView) -> Int {
-//        guard let collectionItem = collectionItem else { return 0 }
-//        guard let discCount = collectionItem.discCount else { return 0 }
-//        return collectionItem.discCount
-//    }
-//
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return "Disc \(section + 1)"
-//    }
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        sectionCount
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Disc \(section + 1)"
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allTrackItems.count
+        if section == 0 {
+            return disc1TrackItems.count
+        } else {
+            return disc2TrackItems.count
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "trackItemCell", for: indexPath) as? TrackTableViewCell else { return UITableViewCell() }
         
-        let trackItem = allTrackItems[indexPath.row]
-        cell.trackItem = trackItem
+        switch indexPath.section {
+        case 0:
+            let trackItem = disc1TrackItems[indexPath.row]
+            cell.trackItem = trackItem
+        default:
+            let trackItem = disc2TrackItems[indexPath.row]
+            cell.trackItem = trackItem
+        }
+        
         
         return cell
         
+    }
+    
+    // MARK: - Custom Methods
+    
+    func updateViews() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    func tracksForDiscs() {
+        for item in allTrackItems {
+            if item.discNumber == 1 {
+                self.disc1TrackItems.append(item)
+            } else if item.discNumber == 2 {
+                self.disc2TrackItems.append(item)
+            }
+        }
     }
     
     // MARK: - Navigation

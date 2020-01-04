@@ -19,34 +19,6 @@ class MediaListTableViewController: UITableViewController, UISearchBarDelegate, 
     
     var mediaItems: [MediaItem] = []
     
-    
-//    var recItem: RecItem? {
-        //        didSet {
-        //            guard let recItem = recItem else { return }
-        //            var type: MediaItem.ItemType {
-        //                switch recItem.type {
-        //                case "movie":
-        //                    return MediaItem.ItemType.movie
-        //                case "show":
-        //                    return MediaItem.ItemType.tvShow
-        //                case "music":
-        //                    return MediaItem.ItemType.music
-        //                case "podcast":
-        //                    return MediaItem.ItemType.podcast
-        //                case "book":
-        //                    return MediaItem.ItemType.ebook
-        //                default:
-        //                    return MediaItem.ItemType.movie
-        //                }
-        //            }
-        //            let searchTerm = recItem.title
-        //            MediaItemController.shared.getItemsOf(type: type, searchText: searchTerm) { (items) in
-        //                self.mediaItems = items
-        //                self.updateViews()
-        //            }
-        //        }
-//    }
-    
     // MARK: - Life Cycle Methods
     
     override func viewDidLoad() {
@@ -60,30 +32,37 @@ class MediaListTableViewController: UITableViewController, UISearchBarDelegate, 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         guard let searchText = itemSearchBar.text, !searchText.isEmpty else { return }
-        
-        var itemType: MediaItem.ItemType {
-            
-            switch itemSegmentedControl.selectedSegmentIndex {
-            case 0:
-                return .movie
-            case 1:
-                return .tvShow
-            case 2:
-                return .music
-            case 3:
-                return .podcast
-            case 4:
-                return .ebook
-            default:
-                return .movie
+        DispatchQueue.main.async {
+            var itemType: MediaItem.ItemType {
+                switch self.itemSegmentedControl.selectedSegmentIndex {
+                case 0:
+                    return .movie
+                case 1:
+                    return .tvShow
+                case 2:
+                    return .music
+                case 3:
+                    return .podcast
+                case 4:
+                    return .ebook
+                default:
+                    return .movie
+                }
             }
-        }
-        
-        MediaItemController.shared.getItemsOf(type: itemType, searchText: searchText) { (items) in
-            
-            //            let sortedItems = items.sorted(by: { $0.releaseDate < $1.releaseDate })
-            self.mediaItems = items
-            self.updateViews()
+            MediaItemController.shared.getItemsOf(type: itemType, searchText: searchText) { (items) in
+                
+                if items.isEmpty {
+                    self.presentInvalidSearch()
+                } else if itemType == .tvShow {
+                    let sortedItems = items.sorted(by: { $0.releaseDate < $1.releaseDate })
+                    self.mediaItems = sortedItems
+                    self.updateViews()
+                }
+                else {
+                    self.mediaItems = items
+                    self.updateViews()
+                }
+            }
         }
     }
     
@@ -107,6 +86,19 @@ class MediaListTableViewController: UITableViewController, UISearchBarDelegate, 
         cell.item = mediaItem
         cell.delegate = self
         return cell
+    }
+    
+    // MARK: - Alerts
+    
+    func presentInvalidSearch() {
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: "Invalid Search", message: "Invalid search or media type", preferredStyle: .alert)
+            let okayAction = UIAlertAction(title: "Okay", style: .default) { (_) in
+                self.itemSearchBar.text = ""
+            }
+            alertController.addAction(okayAction)
+            self.present(alertController, animated: true)
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -161,7 +153,7 @@ class MediaListTableViewController: UITableViewController, UISearchBarDelegate, 
             self.mediaItems = items
             self.updateViews()
             DispatchQueue.main.async {
-                self.itemSearchBar.text = recItem.title                
+                self.itemSearchBar.text = recItem.title
             }
         }
     }

@@ -133,6 +133,8 @@ class MediaItemController {
                 return
             }
             
+            print(String(data: data, encoding: .utf8))
+            
             guard let topLevelJson = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) as? [String: Any] else {
                 print("Could not convert json data from Apple.")
                 completion([])

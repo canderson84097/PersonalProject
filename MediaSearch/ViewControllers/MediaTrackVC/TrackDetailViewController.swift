@@ -45,7 +45,7 @@ class TrackDetailViewController: UIViewController {
         trackSubtitleLabel.text = trackItem.subtitle
         trackRatingLabel.text = trackItem.rating
         trackGenreLabel.text = trackItem.genre
-        trackReleaseDateLabel.text = trackItem.releaseDate
+        trackReleaseDateLabel.text = String(trackItem.releaseDate.prefix(10))
         trackSummaryLabel.text = trackItem.summary
         
         MediaItemController.shared.getImageFor(item: trackItem) { (image) in

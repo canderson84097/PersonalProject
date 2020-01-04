@@ -46,7 +46,6 @@ class ItemDetailViewController: UIViewController {
     //        currHeight?.isActive = true
     //        self.navigationItem.leftBarButtonItem = menuBarItem
     //        self.navigationItem.rightBarButtonItem = menuBarItem
-    //
     //    }
     
     func updateViews() {
@@ -57,9 +56,8 @@ class ItemDetailViewController: UIViewController {
         ratingLabel.text = item.rating
         summaryLabel.text = item.summary
         genreLabel.text = item.genre
-        dateLabel.text = item.releaseDate
+        dateLabel.text = String(item.releaseDate.prefix(10))
         
-        // Do I need to refetch the image here when I fetched it on the previous screen?
         MediaItemController.shared.getImageFor(item: item) { (image) in
             if let image = image {
                 DispatchQueue.main.async {
