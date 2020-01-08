@@ -37,9 +37,18 @@ class TrackDetailViewController: UIViewController {
     
     // MARK: - Custom Methods
     
+    func setUpUI() {
+        title = trackItem?.subtitle
+        trackTitleLabel.textColor = .cyan
+        trackSubtitleLabel.textColor = .red
+        trackRatingLabel.textColor = .yellow
+        trackGenreLabel.textColor = .aquamarine
+        trackReleaseDateLabel.textColor = .limeGreen
+        trackSummaryLabel.textColor = .offYellow
+    }
+    
     func updateViews() {
         guard let trackItem = trackItem else { return }
-        
         loadViewIfNeeded()
         trackTitleLabel.text = trackItem.title
         trackSubtitleLabel.text = trackItem.subtitle
@@ -57,15 +66,5 @@ class TrackDetailViewController: UIViewController {
                 print("track image was nil")
             }
         }
-    }
-    
-    func setUpUI() {
-        title = trackItem?.subtitle
-        trackTitleLabel.textColor = .cyan
-        trackSubtitleLabel.textColor = .red
-        trackRatingLabel.textColor = .yellow
-        trackGenreLabel.textColor = .aquamarine
-        trackReleaseDateLabel.textColor = .limeGreen
-        trackSummaryLabel.textColor = .offYellow
     }
 }

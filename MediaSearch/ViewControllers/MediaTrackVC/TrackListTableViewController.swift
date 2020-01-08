@@ -10,12 +10,11 @@ import UIKit
 
 class TrackListTableViewController: UITableViewController {
     
-    var trackTypeString = ""
+    // MARK: - Properties
     
+    var trackTypeString: String = ""
     var allTrackItems: [MediaItem] = []
-    
     var disc1TrackItems: [MediaItem] = []
-    
     var disc2TrackItems: [MediaItem] = []
     
     var sectionCount: Int {
@@ -25,20 +24,17 @@ class TrackListTableViewController: UITableViewController {
         return sorted.last?.discCount ?? 0
     }
     
-    var collectionItem: MediaItem? {
+    var item: MediaItem? {
         didSet {
-            
-            guard let collectionItem = collectionItem,
-                let collectionID = collectionItem.collectionID,
+            guard let item = item,
+                let collectionID = item.collectionID,
                 let itemType = MediaItem.ItemType(rawValue: trackTypeString)
                 else { return }
             
-            MediaItemController.shared.getTracksOf(collectionID: collectionID, type: itemType, searchTracks: collectionItem.subtitle) { (items) in
-                
+            MediaItemController.shared.getTracksOf(collectionID: collectionID, type: itemType, searchTracks: item.title) { (items) in
                 let sortedTracks = items.sorted(by: { $0.trackNumber ?? 0 < $1.trackNumber ?? 1 })
                 self.allTrackItems = sortedTracks
                 self.tracksForDiscs()
-                
                 self.updateViews()
             }
         }
@@ -73,9 +69,7 @@ class TrackListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "trackItemCell", for: indexPath) as? TrackTableViewCell else { return UITableViewCell() }
-        
         switch indexPath.section {
         case 0:
             let trackItem = disc1TrackItems[indexPath.row]
@@ -84,10 +78,7 @@ class TrackListTableViewController: UITableViewController {
             let trackItem = disc2TrackItems[indexPath.row]
             cell.trackItem = trackItem
         }
-        
-        
         return cell
-        
     }
     
     // MARK: - Custom Methods

@@ -15,7 +15,7 @@ let baseURLString = "https://itunes.apple.com/search"
 let queryTerm = "term"
 let queryEntity = "entity"
 
-class MediaItemController {
+class MediaItemController: Encodable {
     
     static let shared = MediaItemController()
     
@@ -30,7 +30,7 @@ class MediaItemController {
         let entityQuery = URLQueryItem(name: queryEntity, value: type.rawValue)
         components.queryItems = [searchTermQuery, entityQuery]
         
-//        print(components.url!)
+        print(components.url!)
         
         guard let finalUrl = components.url else {
             print("Our query items are causing problems.")
@@ -133,7 +133,7 @@ class MediaItemController {
                 return
             }
             
-            print(String(data: data, encoding: .utf8))
+//            print(String(data: data, encoding: .utf8))
             
             guard let topLevelJson = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) as? [String: Any] else {
                 print("Could not convert json data from Apple.")

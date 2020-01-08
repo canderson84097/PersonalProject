@@ -22,6 +22,8 @@
 		2C71EA4C23B67B9800992B77 /* RecommendedItems.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C71EA4B23B67B9800992B77 /* RecommendedItems.storyboard */; };
 		2C71EA4F23B67DB800992B77 /* RecItemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71EA4E23B67DB800992B77 /* RecItemsTableViewController.swift */; };
 		2C71EA5123B67E2D00992B77 /* RecItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C71EA5023B67E2D00992B77 /* RecItemTableViewCell.swift */; };
+		2CBE6D0D23C17726007BD3BC /* MediaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE6D0C23C17726007BD3BC /* MediaListViewController.swift */; };
+		2CBE6D0F23C17859007BD3BC /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBE6D0E23C17859007BD3BC /* ItemCollectionViewCell.swift */; };
 		2CCE213323B53810008A1611 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE213223B53810008A1611 /* AppDelegate.swift */; };
 		2CCE213523B53810008A1611 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE213423B53810008A1611 /* SceneDelegate.swift */; };
 		2CCE213A23B53810008A1611 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCE213823B53810008A1611 /* Main.storyboard */; };
@@ -32,6 +34,9 @@
 		2CCE215823B53B1A008A1611 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE215723B53B1A008A1611 /* LoginViewController.swift */; };
 		2CCE215A23B53F22008A1611 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCE215923B53F22008A1611 /* CustomView.swift */; };
 		2CCE215C23B541EA008A1611 /* MediaSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCE215B23B541EA008A1611 /* MediaSearch.storyboard */; };
+		2CD10C5923C382F0000C6C3A /* PhotoSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD10C5823C382F0000C6C3A /* PhotoSelectorViewController.swift */; };
+		2CD10C5C23C3B44B000C6C3A /* PopOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD10C5B23C3B44B000C6C3A /* PopOverViewController.swift */; };
+		2CD10C5E23C3B556000C6C3A /* PopOver.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CD10C5D23C3B556000C6C3A /* PopOver.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +55,8 @@
 		2C71EA4B23B67B9800992B77 /* RecommendedItems.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RecommendedItems.storyboard; sourceTree = "<group>"; };
 		2C71EA4E23B67DB800992B77 /* RecItemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecItemsTableViewController.swift; sourceTree = "<group>"; };
 		2C71EA5023B67E2D00992B77 /* RecItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecItemTableViewCell.swift; sourceTree = "<group>"; };
+		2CBE6D0C23C17726007BD3BC /* MediaListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaListViewController.swift; sourceTree = "<group>"; };
+		2CBE6D0E23C17859007BD3BC /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		2CCE212F23B53810008A1611 /* MediaSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediaSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CCE213223B53810008A1611 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CCE213423B53810008A1611 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +70,9 @@
 		2CCE215723B53B1A008A1611 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2CCE215923B53F22008A1611 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		2CCE215B23B541EA008A1611 /* MediaSearch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MediaSearch.storyboard; sourceTree = "<group>"; };
+		2CD10C5823C382F0000C6C3A /* PhotoSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorViewController.swift; sourceTree = "<group>"; };
+		2CD10C5B23C3B44B000C6C3A /* PopOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverViewController.swift; sourceTree = "<group>"; };
+		2CD10C5D23C3B556000C6C3A /* PopOver.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PopOver.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +142,8 @@
 				2CCE213B23B53811008A1611 /* Assets.xcassets */,
 				2CCE213D23B53811008A1611 /* LaunchScreen.storyboard */,
 				2CCE214023B53811008A1611 /* Info.plist */,
+				2C71EA3323B6619C00992B77 /* ItemTableViewCell.swift */,
+				2C71EA4123B6657900992B77 /* MediaListTableViewController.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -140,6 +152,8 @@
 			isa = PBXGroup;
 			children = (
 				2CCE215623B53AFF008A1611 /* LoginVC */,
+				2CD10C5A23C3B420000C6C3A /* PopOverVC */,
+				2CD10C5723C382AA000C6C3A /* PhotoSelectorVC */,
 				2CCE215523B53AE0008A1611 /* MediaSearchVC */,
 				2CCE215423B53AD0008A1611 /* MediaTrackVC */,
 				2C71EA4D23B67D6700992B77 /* RecItemsVC */,
@@ -180,7 +194,7 @@
 		2CCE214F23B539AF008A1611 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
-				2C71EA3323B6619C00992B77 /* ItemTableViewCell.swift */,
+				2CBE6D0E23C17859007BD3BC /* ItemCollectionViewCell.swift */,
 				2C71EA3523B661A400992B77 /* TrackTableViewCell.swift */,
 				2C71EA5023B67E2D00992B77 /* RecItemTableViewCell.swift */,
 			);
@@ -201,6 +215,7 @@
 				2CCE213823B53810008A1611 /* Main.storyboard */,
 				2CCE215B23B541EA008A1611 /* MediaSearch.storyboard */,
 				2C71EA4B23B67B9800992B77 /* RecommendedItems.storyboard */,
+				2CD10C5D23C3B556000C6C3A /* PopOver.storyboard */,
 			);
 			path = StoryBoard;
 			sourceTree = "<group>";
@@ -217,7 +232,7 @@
 		2CCE215523B53AE0008A1611 /* MediaSearchVC */ = {
 			isa = PBXGroup;
 			children = (
-				2C71EA4123B6657900992B77 /* MediaListTableViewController.swift */,
+				2CBE6D0C23C17726007BD3BC /* MediaListViewController.swift */,
 				2C71EA4323B6658000992B77 /* ItemDetailViewController.swift */,
 			);
 			path = MediaSearchVC;
@@ -229,6 +244,22 @@
 				2CCE215723B53B1A008A1611 /* LoginViewController.swift */,
 			);
 			path = LoginVC;
+			sourceTree = "<group>";
+		};
+		2CD10C5723C382AA000C6C3A /* PhotoSelectorVC */ = {
+			isa = PBXGroup;
+			children = (
+				2CD10C5823C382F0000C6C3A /* PhotoSelectorViewController.swift */,
+			);
+			path = PhotoSelectorVC;
+			sourceTree = "<group>";
+		};
+		2CD10C5A23C3B420000C6C3A /* PopOverVC */ = {
+			isa = PBXGroup;
+			children = (
+				2CD10C5B23C3B44B000C6C3A /* PopOverViewController.swift */,
+			);
+			path = PopOverVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,6 +322,7 @@
 			files = (
 				2CCE213F23B53811008A1611 /* LaunchScreen.storyboard in Resources */,
 				2C71EA4C23B67B9800992B77 /* RecommendedItems.storyboard in Resources */,
+				2CD10C5E23C3B556000C6C3A /* PopOver.storyboard in Resources */,
 				2CCE215323B53A91008A1611 /* Colors.xcassets in Resources */,
 				2CCE213C23B53811008A1611 /* Assets.xcassets in Resources */,
 				2CCE213A23B53810008A1611 /* Main.storyboard in Resources */,
@@ -307,11 +339,15 @@
 			files = (
 				2C71EA4223B6657900992B77 /* MediaListTableViewController.swift in Sources */,
 				2C71EA3C23B661E400992B77 /* MediaRecommenderController.swift in Sources */,
+				2CBE6D0D23C17726007BD3BC /* MediaListViewController.swift in Sources */,
 				2CCE215823B53B1A008A1611 /* LoginViewController.swift in Sources */,
+				2CD10C5C23C3B44B000C6C3A /* PopOverViewController.swift in Sources */,
 				2C71EA3423B6619C00992B77 /* ItemTableViewCell.swift in Sources */,
+				2CBE6D0F23C17859007BD3BC /* ItemCollectionViewCell.swift in Sources */,
 				2CCE215A23B53F22008A1611 /* CustomView.swift in Sources */,
 				2C71EA4623B6659B00992B77 /* TrackListTableViewController.swift in Sources */,
 				2C71EA3E23B661EC00992B77 /* MediaItemController.swift in Sources */,
+				2CD10C5923C382F0000C6C3A /* PhotoSelectorViewController.swift in Sources */,
 				2C71EA3623B661A400992B77 /* TrackTableViewCell.swift in Sources */,
 				2CCE213323B53810008A1611 /* AppDelegate.swift in Sources */,
 				2C71EA4F23B67DB800992B77 /* RecItemsTableViewController.swift in Sources */,
