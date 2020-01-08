@@ -532,13 +532,27 @@
                                             <segue destination="Jbx-Te-c1S" kind="embed" identifier="toPhotoSelector" id="ww7-dY-EeG"/>
                                         </connections>
                                     </containerView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRD-aV-p22">
+                                        <rect key="frame" x="332" y="24" width="32" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="KRD-aV-p22" secondAttribute="height" multiplier="1:1" id="b2R-aN-K71"/>
+                                        </constraints>
+                                        <state key="normal" image="settings"/>
+                                        <connections>
+                                            <action selector="settingsButtonPressed:" destination="75v-Bg-aiN" eventType="touchUpInside" id="sHm-DZ-xIA"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
+                                    <constraint firstItem="KRD-aV-p22" firstAttribute="top" secondItem="I9M-Yd-eJX" secondAttribute="top" constant="24" id="DaW-xS-p6p"/>
                                     <constraint firstItem="Whf-h5-e9g" firstAttribute="top" secondItem="I9M-Yd-eJX" secondAttribute="top" constant="10" id="Gue-6p-1KC"/>
+                                    <constraint firstAttribute="trailing" secondItem="KRD-aV-p22" secondAttribute="trailing" constant="50" id="Htn-JL-2jJ"/>
                                     <constraint firstItem="zgL-hK-rwo" firstAttribute="leading" secondItem="Whf-h5-e9g" secondAttribute="trailing" constant="8" id="b3c-Vf-fBA"/>
                                     <constraint firstItem="Whf-h5-e9g" firstAttribute="centerY" secondItem="zgL-hK-rwo" secondAttribute="centerY" id="bXD-Ns-QxO"/>
                                     <constraint firstItem="Whf-h5-e9g" firstAttribute="leading" secondItem="I9M-Yd-eJX" secondAttribute="leading" constant="10" id="d0v-Io-RCD"/>
+                                    <constraint firstItem="KRD-aV-p22" firstAttribute="leading" secondItem="zgL-hK-rwo" secondAttribute="trailing" constant="185" id="o7v-Bf-JAs"/>
+                                    <constraint firstAttribute="bottom" secondItem="KRD-aV-p22" secondAttribute="bottom" constant="24" id="ooq-NC-oJp"/>
                                 </constraints>
                             </view>
                             <searchBar contentMode="redraw" placeholder="Search media here" translatesAutoresizingMaskIntoConstraints="NO" id="qfl-PA-P5z">
@@ -727,5 +741,6 @@
     <resources>
         <image name="White-Default-Profile-Image" width="490" height="491"/>
         <image name="favoriteGold" width="460" height="460"/>
+        <image name="settings" width="280" height="280"/>
     </resources>
 </document>

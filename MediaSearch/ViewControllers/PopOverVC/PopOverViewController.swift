@@ -47,14 +47,11 @@ class PopOverViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func favoriteButtonPressed(_ sender: Any) {
-        // make UserSettingsVC
-        //        DispatchQueue.main.async {
-        //        let storyboard = UIStoryboard(name: "RecommendedItems", bundle: nil)
-        //        guard let viewController = storyboard.instantiateViewController(identifier: "recItemsTVC") as? RecItemsTableViewController,
-        //            let title = self.item?.title else { return }
-        //        viewController.searchTerm = title
-        //        viewController.modalPresentationStyle = .fullScreen
-        //        self.navigationController?.pushViewController(viewController, animated: true)
+        guard let item = self.item else { return }
+        UserController.shared.favorites.append(item)
+        UserController.shared.saveToPersistentStore()
+        print("Successfully added and saved \(item.title) to your favorites.")
+        presentFavoriteAdded()
     }
     
     @IBAction func similarButtonPressed(_ sender: Any) {
@@ -74,5 +71,17 @@ class PopOverViewController: UIViewController {
     
     @objc func dismissViewController() {
         self.dismiss(animated: true)
+    }
+    
+    // MARK: - Alerts
+    
+    func presentFavoriteAdded() {
+        guard let title = item?.title else { return }
+        let alertController = UIAlertController(title: "Favorite Added", message: "\(title) was added to your favorites!", preferredStyle: .alert)
+        let okayAction = UIAlertAction(title: "Okay", style: .default) { (_) in
+            self.dismissViewController()
+        }
+        alertController.addAction(okayAction)
+        self.present(alertController, animated: true)
     }
 }

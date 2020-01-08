@@ -82,6 +82,9 @@ class MediaItemController: Encodable {
             return
         }
         
+        // if i want better image quality.
+        //.replacingOccurrences(of: "/100x100", with: "/256x256")
+        
         URLSession.shared.dataTask(with: url) { (data, _, error) in
             
             if let error = error {
@@ -111,7 +114,7 @@ class MediaItemController: Encodable {
         let entityQuery = URLQueryItem(name: queryEntity, value: type.rawValue)
         components.queryItems = [searchTermQuery, entityQuery]
         
-//        print(components.url!)
+        //        print(components.url!)
         
         guard let finalUrl = components.url else {
             print("Our query items are causing problems.")
@@ -133,7 +136,7 @@ class MediaItemController: Encodable {
                 return
             }
             
-//            print(String(data: data, encoding: .utf8))
+            //            print(String(data: data, encoding: .utf8))
             
             guard let topLevelJson = (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) as? [String: Any] else {
                 print("Could not convert json data from Apple.")

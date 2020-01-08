@@ -64,7 +64,7 @@ extension MediaItem {
         if itemType == .movie {
             
             guard let title = dict[ItemStrings.trackNameKey] as? String,
-                let subtitle = dict[ItemStrings.artistKey] as? String,
+                let subtitle = dict[ItemStrings.trackNameKey] as? String,
                 let summary = dict[ItemStrings.summaryKey] as? String
                 else { return nil }
             
