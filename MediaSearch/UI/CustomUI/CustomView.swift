@@ -13,6 +13,10 @@ extension UIView {
    func addCornerRadius(_ radius: CGFloat = 4) {
        layer.cornerRadius = radius
    }
+    
+    func itemCornerRadius(radius: CGFloat = 8) {
+        layer.cornerRadius = frame.height / radius
+    }
    
    func addAccentBorder(width: CGFloat = 1, color: UIColor = UIColor.cyan) {
        layer.borderWidth = width
@@ -35,4 +39,16 @@ extension UIColor {
     static let aquamarine = UIColor(named: "aquamarine")!
     static let unclickedText = UIColor(named: "unclickedText")!
     static let spaceGrey = UIColor(named: "spaceGrey")!
+}
+
+extension UIViewController {
+    func showAnimate() {
+        self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        self.view.alpha = 0.0;
+        UIView.animate(withDuration: 0.25, animations: {
+            self.view.alpha = 1.0
+            self.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+
+        });
+    }
 }

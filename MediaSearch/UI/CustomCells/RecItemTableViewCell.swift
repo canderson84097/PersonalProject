@@ -42,7 +42,6 @@ class RecItemTableViewCell: UITableViewCell {
     
     @IBAction func getInfoButtonPressed(_ sender: Any) {
         guard let recItem = recItem else { return }
-        
         delegate?.getInfoButtonPressed(recItem: recItem)
     }
     

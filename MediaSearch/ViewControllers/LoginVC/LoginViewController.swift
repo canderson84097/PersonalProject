@@ -23,6 +23,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var toggleFAQ: UIButton!
     @IBOutlet weak var signUpOrInButton: UIButton!
     
+    // MARK: - Life Cycle Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
@@ -48,6 +50,7 @@ class LoginViewController: UIViewController {
             }
         }
     }
+    
     @IBAction func signUpOrInButtonPressed(_ sender: Any) {
         if toggleSignUpOrIn.selectedSegmentIndex == 0 {
             guard let username = usernameTextField.text,

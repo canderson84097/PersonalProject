@@ -6,10 +6,6 @@
 //  Copyright © 2019 Renaissance Apps. All rights reserved.
 //
 
-protocol RecItemsTableViewControllerDelegate {
-    func searchRecItem(recItem: RecItem)
-}
-
 import UIKit
 
 class RecItemsTableViewController: UITableViewController, RecItemTableViewCellDelegate {
@@ -18,11 +14,9 @@ class RecItemsTableViewController: UITableViewController, RecItemTableViewCellDe
     
     var allRecItems: [RecItem] = []
     
-    var delegate: RecItemsTableViewControllerDelegate?
-    
     var recItem: RecItem?
     
-    var searchTerm = "" {
+    var searchTerm = String() {
         didSet {
             MediaRecommenderController.shared.getRecommendationsOf(searchText: searchTerm) { (items) in
                        self.allRecItems = items
@@ -37,6 +31,11 @@ class RecItemsTableViewController: UITableViewController, RecItemTableViewCellDe
         super.viewDidLoad()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "dismiss"), object: nil)
+    }
+    
     // MARK: - Custom Methods
     
     func updateViews() {
@@ -45,8 +44,16 @@ class RecItemsTableViewController: UITableViewController, RecItemTableViewCellDe
         }
     }
     
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+    
     func getInfoButtonPressed(recItem: RecItem) {
-        delegate?.searchRecItem(recItem: recItem)
+        var infoToSend: [String:Any] {[
+            "title" : recItem.title,
+            "type" : recItem.type
+        ]}
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "search"), object: nil, userInfo: infoToSend)
         self.dismiss(animated: true, completion: nil)
     }
     

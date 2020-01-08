@@ -11,13 +11,13 @@ import CloudKit
 
 class UserController {
     
+    // MARK: - Properties
+    
     static let shared = UserController()
-    
-    // Source Of Truth for User Favorites
-    static var favorites: [MediaItem] = []
-    
+    var favorites = Set<MediaItem>()
+    var friends = Set<User>()
+    var blockedUsers = Set<User>()
     var currentUser: User?
-    
     let publicDB = CKContainer.default().publicCloudDatabase
     
     // MARK: - CRUD
@@ -63,7 +63,6 @@ class UserController {
                 guard let record = records?.first,
                     let foundUser = User(ckRecord: record)
                     else { completion(false); return }
-                
                 self.currentUser = foundUser
                 print("Fetched User: \(record.recordID.recordName) successfully")
                 completion(true)
@@ -81,6 +80,38 @@ class UserController {
             guard let recordID = recordID else { completion(nil); return }
             let reference = CKRecord.Reference(recordID: recordID, action: .deleteSelf)
             completion(reference)
+        }
+    }
+    
+    // MARK: - Persistence
+    
+    func fileURL() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = paths[0]
+        let filename = "MediaSearch.json"
+        let fullURL = documentDirectory.appendingPathComponent(filename)
+        return fullURL
+    }
+    
+    func saveToPersistentStore() {
+        let encoder = JSONEncoder()
+        
+        do {
+            let data = try encoder.encode(favorites)
+            try data.write(to: fileURL())
+        } catch let error {
+            print(error)
+        }
+    }
+    
+    func loadFromPersistentStore() {
+        let decoder = JSONDecoder()
+        do {
+            let data = try Data(contentsOf: fileURL())
+            let favorites = try decoder.decode(Set<MediaItem>.self, from: data)
+            self.favorites = favorites
+        } catch let error {
+            print(error)
         }
     }
 }

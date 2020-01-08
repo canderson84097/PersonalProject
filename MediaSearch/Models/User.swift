@@ -9,10 +9,9 @@
 import UIKit
 import CloudKit
 
-class User {
+struct User: Hashable {
     var username: String
     var password: String
-    var favorite: [MediaItem] = []
     var recordID: CKRecord.ID
     var appleUserRef: CKRecord.Reference
     var photoData: Data?
@@ -39,11 +38,10 @@ class User {
         }
     }
     
-    init (username: String, password: String, favorite: [MediaItem] = [], recordID: CKRecord.ID = CKRecord.ID(recordName: UUID().uuidString), appleUserRef: CKRecord.Reference, profileImage: UIImage? = nil) {
+    init (username: String, password: String, recordID: CKRecord.ID = CKRecord.ID(recordName: UUID().uuidString), appleUserRef: CKRecord.Reference, profileImage: UIImage? = nil) {
         
         self.username = username
         self.password = password
-        self.favorite = favorite
         self.recordID = recordID
         self.appleUserRef = appleUserRef
         self.profileImage = profileImage
@@ -51,7 +49,7 @@ class User {
 }
 
 extension User {
-    convenience init?(ckRecord: CKRecord) {
+    init?(ckRecord: CKRecord) {
         guard let username = ckRecord[UserConstants.usernameKey] as? String,
             let password = ckRecord[UserConstants.passwordKey] as? String,
             let appleUserRef = ckRecord[UserConstants.appleUserRefKey] as? CKRecord.Reference

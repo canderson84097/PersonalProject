@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MediaItem {
+struct MediaItem: Hashable, Codable {
     let title: String
     let subtitle: String
     let rating: String?
@@ -37,18 +37,18 @@ struct MediaItem {
 extension MediaItem {
     init?(itemType: MediaItem.ItemType, dict: [String: Any]) {
         
-        guard let releaseDate = dict[ItemConstants.releaseDateKey] as? String
+        guard let releaseDate = dict[ItemStrings.releaseDateKey] as? String
             else { return nil }
         
-        let imageURL = dict["artworkUrl100"] as? String
-        let rating = dict[ItemConstants.contentRatingKey] as? String
-        let genre = dict[ItemConstants.genreKey] as? String
-        let trackCount = dict[ItemConstants.trackCountKey] as? Int
-        let length = dict[ItemConstants.lengthKey] as? Int
-        let trackNumber = dict[ItemConstants.trackNumberKey] as? Int
-        let discCount = dict[ItemConstants.discCountKey] as? Int
-        let discNumber = dict[ItemConstants.discNumberKey] as? Int
-        let collectionID = dict[ItemConstants.collectionIDKey] as? Int
+        let imageURL = dict[ItemStrings.imageURLKey] as? String
+        let rating = dict[ItemStrings.contentRatingKey] as? String
+        let genre = dict[ItemStrings.genreKey] as? String
+        let trackCount = dict[ItemStrings.trackCountKey] as? Int
+        let length = dict[ItemStrings.lengthKey] as? Int
+        let trackNumber = dict[ItemStrings.trackNumberKey] as? Int
+        let discCount = dict[ItemStrings.discCountKey] as? Int
+        let discNumber = dict[ItemStrings.discNumberKey] as? Int
+        let collectionID = dict[ItemStrings.collectionIDKey] as? Int
         
         self.releaseDate = releaseDate
         self.rating = rating
@@ -63,9 +63,9 @@ extension MediaItem {
         
         if itemType == .movie {
             
-            guard let title = dict[ItemConstants.trackNameKey] as? String,
-                let subtitle = dict[ItemConstants.artistKey] as? String,
-                let summary = dict[ItemConstants.summaryKey] as? String
+            guard let title = dict[ItemStrings.trackNameKey] as? String,
+                let subtitle = dict[ItemStrings.artistKey] as? String,
+                let summary = dict[ItemStrings.summaryKey] as? String
                 else { return nil }
             
             self.title = title
@@ -74,9 +74,9 @@ extension MediaItem {
             
         } else if itemType == .music {
             
-            guard let title = dict[ItemConstants.artistKey] as? String,
-                let subtitle = dict[ItemConstants.collectionNameKey] as? String,
-                let summary = dict[ItemConstants.copyrightKey] as? String
+            guard let title = dict[ItemStrings.collectionNameKey] as? String,
+                let subtitle = dict[ItemStrings.artistKey] as? String,
+                let summary = dict[ItemStrings.copyrightKey] as? String
                 else { return nil }
             
             self.title = title
@@ -85,9 +85,9 @@ extension MediaItem {
             
         } else if itemType == .tvShow {
             
-            guard let title = dict[ItemConstants.artistKey] as? String,
-                let subtitle = dict[ItemConstants.collectionNameKey] as? String,
-                let summary = dict[ItemConstants.summaryKey] as? String
+            guard let title = dict[ItemStrings.collectionNameKey] as? String,
+                let subtitle = dict[ItemStrings.artistKey] as? String,
+                let summary = dict[ItemStrings.summaryKey] as? String
                 else { return nil }
             
             self.title = title
@@ -96,19 +96,19 @@ extension MediaItem {
             
         } else if itemType == .ebook {
             
-            guard let title = dict[ItemConstants.trackNameKey] as? String,
-                let subtitle = dict[ItemConstants.artistKey] as? String,
-                let rawSummary = dict[ItemConstants.descriptionKey] as? String
+            guard let title = dict[ItemStrings.trackNameKey] as? String,
+                let subtitle = dict[ItemStrings.artistKey] as? String,
+                let rawSummary = dict[ItemStrings.descriptionKey] as? String
                 else { return nil }
             
             self.title = title
             self.subtitle = subtitle
-            self.summary = rawSummary.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+            self.summary = rawSummary.replacingOccurrences(of: ItemStrings.htmlKey, with: "", options: .regularExpression, range: nil)
             
         } else if itemType == .podcast {
             
-            guard let title = dict[ItemConstants.trackNameKey] as? String,
-                let subtitle = dict[ItemConstants.artistKey] as? String
+            guard let title = dict[ItemStrings.trackNameKey] as? String,
+                let subtitle = dict[ItemStrings.artistKey] as? String
                 else { return nil }
             
             let summary = ""
@@ -119,9 +119,9 @@ extension MediaItem {
             
         } else if itemType == .episodes {
             
-            guard let title = dict[ItemConstants.collectionNameKey] as? String,
-                let subtitle = dict[ItemConstants.trackNameKey] as? String,
-                let summary = dict[ItemConstants.summaryKey] as? String
+            guard let title = dict[ItemStrings.collectionNameKey] as? String,
+                let subtitle = dict[ItemStrings.trackNameKey] as? String,
+                let summary = dict[ItemStrings.summaryKey] as? String
                 else { return nil }
             
             self.title = title
@@ -130,8 +130,8 @@ extension MediaItem {
             
         } else if itemType == .songs {
             
-            guard let title = dict[ItemConstants.collectionNameKey] as? String,
-                let subtitle = dict[ItemConstants.trackNameKey] as? String
+            guard let title = dict[ItemStrings.collectionNameKey] as? String,
+                let subtitle = dict[ItemStrings.trackNameKey] as? String
                 else { return nil }
             
             let summary = ""
@@ -147,7 +147,9 @@ extension MediaItem {
     }
 }
  
-struct ItemConstants {
+struct ItemStrings {
+    static let emptyString = ""
+    static let htmlKey = "<[^>]+>"
     static let trackNameKey = "trackName"
     static let artistKey = "artistName"
     static let collectionNameKey = "collectionName"

@@ -1,14 +1,14 @@
-////
-////  MediaRecommenderController.swift
-////  AppleSearch
-////
-////  Created by Chris Anderson on 12/19/19.
-////  Copyright © 2019 Renaissance Apps. All rights reserved.
-////
 //
-//// https://tastedive.com/api/similar  baseURLString for recommender
-//// https://tastedive.com/api/similar?info=1&q=red+hot+chili+peppers%2C+pulp+fiction grabs recommendations and info for band & movie
-//// https://tastedive.com/api/similar?info=1&q=the+office grabs the office recommendations with info
+//  MediaRecommenderController.swift
+//  AppleSearch
+//
+//  Created by Chris Anderson on 12/19/19.
+//  Copyright © 2019 Renaissance Apps. All rights reserved.
+//
+
+// https://tastedive.com/api/similar  baseURLString for recommender
+// https://tastedive.com/api/similar?info=1&q=red+hot+chili+peppers%2C+pulp+fiction grabs recommendations and info for band & movie
+// https://tastedive.com/api/similar?info=1&q=the+office grabs the office recommendations with info
 
 import Foundation
 
