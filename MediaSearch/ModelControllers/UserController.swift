@@ -14,9 +14,9 @@ class UserController {
     // MARK: - Properties
     
     static let shared = UserController()
-    var favorites = Set<MediaItem>()
-    var friends = Set<User>()
-    var blockedUsers = Set<User>()
+    var favorites: [MediaItem] = []
+    var friends: [User] = []
+    var blockedUsers: [User] = []
     var currentUser: User?
     let publicDB = CKContainer.default().publicCloudDatabase
     
@@ -108,7 +108,7 @@ class UserController {
         let decoder = JSONDecoder()
         do {
             let data = try Data(contentsOf: fileURL())
-            let favorites = try decoder.decode(Set<MediaItem>.self, from: data)
+            let favorites = try decoder.decode([MediaItem].self, from: data)
             self.favorites = favorites
         } catch let error {
             print(error)

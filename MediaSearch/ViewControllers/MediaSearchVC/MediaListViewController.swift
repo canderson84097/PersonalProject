@@ -32,6 +32,29 @@ class MediaListViewController: UIViewController, UISearchBarDelegate, ItemCollec
     
     // MARK: - Actions
     
+    @IBAction func settingsButtonPressed(_ sender: Any) {
+        DispatchQueue.main.async {
+            let storyboard = UIStoryboard(name: "UserSettings", bundle: nil)
+            guard let viewController = storyboard.instantiateInitialViewController() else { return }
+            
+            viewController.modalPresentationStyle = .popover
+            self.present(viewController, animated: true)
+//            self.presentDetail(viewController)
+        }
+    }
+    
+    /*
+    func presentPopOverVC(item: MediaItem) {
+        DispatchQueue.main.async {
+            let storyboard = UIStoryboard(name: "PopOver", bundle: nil)
+            guard let viewController = storyboard.instantiateInitialViewController() as? PopOverViewController else { return }
+            viewController.item = item
+            viewController.modalPresentationStyle = .popover
+            self.present(viewController, animated: true)
+        }
+    }
+ */
+    
     @IBAction func signOutButtonPressed(_ sender: Any) {
         signOutUser()
     }
